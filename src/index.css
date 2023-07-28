@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.required::after {
+  content: ' *';
+  color: red;
+}
+
+
+#file-input {
+  display: none;
+}
