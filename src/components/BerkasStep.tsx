@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, useEffect, useState } from "react";
+import { ChangeEvent, useEffect } from "react";
 
 interface BerkasProps {
   cv: string | null;

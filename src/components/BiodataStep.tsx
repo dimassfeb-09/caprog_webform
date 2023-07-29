@@ -1,7 +1,7 @@
 import { FormControl, MenuItem, Select, TextField } from "@mui/material";
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
-import { ChangeEvent, Dispatch, useState } from "react";
+import { Dispatch } from "react";
 
 type BiodataProps = {
   nama: string;
@@ -68,8 +68,8 @@ const BiodataStep = (props: BiodataProps) => {
           <MenuItem value={"Select"} disabled>
             Pilih Jenis Kelamin
           </MenuItem>
-          <MenuItem value={"L"}>Laki-Laki</MenuItem>
-          <MenuItem value={"P"}>Perempuan</MenuItem>
+          <MenuItem value={"Men"}>Laki-Laki</MenuItem>
+          <MenuItem value={"Woman"}>Perempuan</MenuItem>
         </Select>
       </FormControl>
       <div className="flex w-full gap-3">
@@ -146,7 +146,7 @@ const BiodataStep = (props: BiodataProps) => {
           <MenuItem value={"Select"} disabled>
             Pilih Posisi Daftar
           </MenuItem>
-          <MenuItem value={"Asisten"}>Asisten Lab</MenuItem>
+          <MenuItem value={"Asisten Lab"}>Asisten Lab</MenuItem>
           <MenuItem value={"Programmer"}>Programmer</MenuItem>
         </Select>
       </FormControl>
