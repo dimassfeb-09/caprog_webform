@@ -16,6 +16,7 @@ import postRegisterData from "../repository/postRegisterData.ts";
 import SuccessRegistered from "../components/SuccessRegistered.tsx";
 import postDocumentData from "../repository/postDocumentData.ts";
 import Nav from "../components/Nav.tsx";
+import generateFolderName from "../helper/generateFolderName.ts";
 
 const HomePage = () => {
     const theme = useTheme();
@@ -95,7 +96,7 @@ const HomePage = () => {
         }
     };
 
-    const handleUploadDocument = () => {
+    const handleUploadDocument = (folderName: string) => {
         postUploadFileDocument({
             cv: cv,
             dns: dns,
@@ -104,8 +105,8 @@ const HomePage = () => {
             npm: npm,
             photo: pasFoto,
             sertifikat: sertifikat,
-            krs: krs
-        });
+            krs: krs,
+        }, folderName);
 
     }
 
@@ -130,18 +131,18 @@ const HomePage = () => {
         }
     }
 
-    const handlePostDocuments = async (id: number) => {
+    const handlePostDocuments = async (id: number, folderName: string) => {
         try {
             await postDocumentData({
-                photo: `${npm}_photo.png`,
-                dns: `${npm}_dns.pdf`,
-                ktp: `${npm}_ktp.png`,
-                krs: `${npm}_krs.pdf`,
-                sertifikat: `${npm}_sertifikat.pdf`,
+                photo: "photo.png",
+                dns: "dns.pdf",
+                ktp: "ktp.png",
+                krs: "krs.pdf",
+                sertifikat: "sertifikat.pdf",
                 userID: id,
-                ktm: `${npm}_ktm.png`,
-                cv: `${npm}_cv.pdf`,
-            });
+                ktm: "ktm.png",
+                cv: "cv.pdf",
+            }, folderName);
         } catch (e) {
             throw e;
         }
@@ -155,9 +156,13 @@ const HomePage = () => {
             // validation input
             validation();
 
+
+            // generate folder_name
+            const folderName = generateFolderName();
+
             // post registers and documents database to database
             handlePostRegister()
-                .then((id) => handlePostDocuments(id)
+                .then((id) => handlePostDocuments(id, folderName)
                     .catch(error => {
                         throw error;
                     }))
@@ -166,10 +171,32 @@ const HomePage = () => {
                 });
 
             // upload to firebase storage
-            handleUploadDocument();
+            handleUploadDocument(folderName);
 
             toast.success('Berhasil unggah, harap tunggu informasi selanjutnya');
             setActiveStep(3);
+
+
+            setNpm("");
+            setLocation("");
+            setMajor("");
+            setNama("");
+            setKelas("");
+            setJenisKelamin("");
+            setTanggalLahir(undefined);
+            setTempatLahir("");
+            setAlamat("");
+            setNoPhone("");
+            setEmail("");
+            setPositionApply("");
+            setIpk(0)
+            setCV(null)
+            setKRS(null);
+            setPasFoto(null);
+            setKTM(null);
+            setKTP(null);
+            setDNS(null);
+            setSertifikat(null);
         } catch (e) {
             setIsSubmitClicked(false);
             return toast.error(String(e), {
@@ -207,6 +234,7 @@ const HomePage = () => {
     const handleFileChangeeSertifikat = (file: File) => {
         setSertifikat(file);
     };
+
 
     const step = () => {
         switch (activeStep) {

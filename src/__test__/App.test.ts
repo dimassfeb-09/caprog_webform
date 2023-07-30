@@ -3,6 +3,11 @@ import getRegisterData from "../repository/getRegisterData.ts";
 import postRegisterData from "../repository/postRegisterData.ts";
 import postDocumentData from "../repository/postDocumentData.ts";
 import getDocumentData from "../repository/getDocumentData.ts";
+import generateFolderName from "../helper/generateFolderName.ts";
+import supabase from "../db/DatabaseClient.ts";
+import deleteRegisterData from "../repository/deleteRegisterData.ts";
+import {SupabaseClient} from "@supabase/supabase-js";
+import deleteDocumentData from "../repository/deleteDocumentData.ts";
 
 
 describe('getRegisters()', () => {
@@ -52,25 +57,31 @@ describe('postRegisters()', () => {
 
 describe('postDocuments()', () => {
     it('should be true', async () => {
-        const result = await postDocumentData({
-            ktm: "url2",
-            cv: "url2",
-            userID: 1,
-            sertifikat: "url2",
-            krs: "url2",
-            ktp: "url2",
-            dns: "url2",
-            photo: "url2",
-        });
-        expect(result).toBeTruthy();
+        await postDocumentData({
+            ktm: "ktm.png",
+            cv: "cv.pdf",
+            userID: 55,
+            sertifikat: "sertifikat.pdf",
+            krs: "krs.pdf",
+            ktp: "ktp.png",
+            dns: "dns.pdf",
+            photo: "photo.png",
+        }, generateFolderName());
     });
 });
 
 
 describe('getDocumentsData()', () => {
     it('should be true', async () => {
-        const result = await getDocumentData(24);
-        console.log(result);
+        const result = await getDocumentData(43);
         expect(true).toBe(true);
+    });
+});
+
+describe('deleteDocumentData()', () => {
+    it('should be deleted', async () => {
+        const supabaseClient = supabase;
+        deleteDocumentData(supabaseClient, 42).then(value => value);
+        deleteRegisterData(supabaseClient, 42).then(value => value);
     });
 });

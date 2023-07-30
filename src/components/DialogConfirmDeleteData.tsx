@@ -17,8 +17,9 @@ const DialogConfirmDeleteData = (props: DialogProps) => {
 
     const deleteData = async () => {
         const supabaseClient = supabase;
-        deleteRegisterData(supabaseClient, props.dataUser?.id).then(value => value);
-        deleteDocumentData(supabaseClient, props.dataUser?.id).then(value => value);
+        const id: number = props.dataUser?.id!;
+        deleteDocumentData(supabaseClient, id).then(() => deleteRegisterData(supabaseClient, id).then(value => value));
+
     }
 
     const handleConfirm = () => {

@@ -6,8 +6,9 @@ import {
     DialogTitle,
 } from "@mui/material";
 import {useState} from "react";
-import TableDetailUser from "./TableDetailUser.tsx";
-import TableDocumentUser from "./TableDocumentUser.tsx";
+import TableDetailRegisterData from "./TableDetailRegisterData.tsx";
+import TableDocumentRegisterData from "./TableDocumentRegisterData.tsx";
+import {ClipLoader} from "react-spinners";
 
 interface DialogProps {
     open: boolean;
@@ -21,7 +22,7 @@ enum showDialog {
     Table = "Table", Document = "Document"
 }
 
-const DialogDetailUser = (props: DialogProps) => {
+const DialogDetailRegisterData = (props: DialogProps) => {
 
     const [showDialogSelect, setShowDialogSelect] = useState<showDialog>(showDialog.Table)
 
@@ -49,8 +50,8 @@ const DialogDetailUser = (props: DialogProps) => {
 
             <DialogContent>
                 {props.isLoading == true ?
-                    <div className="flex justify-center items-center mt-10">Loading....</div> : <>
-                        {showDialogSelect == showDialog.Table ? TableDetailUser(props.dataUser) : TableDocumentUser(props.documentType, props.dataUser?.npm)}
+                    <div className="flex justify-center items-center mt-10"><ClipLoader color={'blue'}/></div> : <>
+                        {showDialogSelect == showDialog.Table ? TableDetailRegisterData(props.dataUser) : TableDocumentRegisterData(props.documentType)}
                     </>
                 }
 
@@ -65,4 +66,4 @@ const DialogDetailUser = (props: DialogProps) => {
     );
 };
 
-export default DialogDetailUser;
+export default DialogDetailRegisterData;

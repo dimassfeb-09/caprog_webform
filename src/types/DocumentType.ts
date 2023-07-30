@@ -8,4 +8,5 @@ type DocumentData = {
     dns: string,
     sertifikat: string,
     cv: string,
+    folder_name: string;
 }

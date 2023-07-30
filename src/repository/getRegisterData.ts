@@ -9,7 +9,7 @@ const getRegisterData = async () => {
         const registerData: RegisterData[] = data;
         return registerData;
     } catch (e) {
-        console.log(e);
+        throw e;
     }
 };
 

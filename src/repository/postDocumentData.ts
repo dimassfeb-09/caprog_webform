@@ -11,7 +11,7 @@ interface DocumentData {
     sertifikat: string,
 }
 
-const postDocumentData = async (data: DocumentData) => {
+const postDocumentData = async (data: DocumentData, folderName: string) => {
     try {
         const {error} = await supabase.from("documents").insert({
             user_id: data.userID,
@@ -22,12 +22,12 @@ const postDocumentData = async (data: DocumentData) => {
             dns: data.dns,
             sertifikat: data.sertifikat,
             cv: data.cv,
+            folder_name: folderName,
         });
         if (error != null) {
             throw Error(error.message);
         }
     } catch (e) {
-        console.log(e);
         throw e;
     }
 };

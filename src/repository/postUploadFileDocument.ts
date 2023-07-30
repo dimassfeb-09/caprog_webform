@@ -1,7 +1,7 @@
 import {getStorage, ref, uploadBytesResumable} from "firebase/storage";
 import firebaseApp from "../db/FirebaseClient.ts";
 
-interface UploadFileDocument  {
+interface UploadFileDocument {
     npm: string;
     krs: File | null;
     photo: File | null;
@@ -12,38 +12,36 @@ interface UploadFileDocument  {
     cv: File | null;
 }
 
-const postUploadFileDocument = (data: UploadFileDocument) => {
+const postUploadFileDocument = (data: UploadFileDocument, folderName: string) => {
     const storage = getStorage(firebaseApp);
     const promises = [];
 
-    const npm = data.npm;
-
     if (data.krs != null) {
-        promises.push(uploadBytesResumable(ref(storage, `${npm}/${npm}_krs.pdf`), data.krs));
+        promises.push(uploadBytesResumable(ref(storage, `${folderName}/krs.pdf`), data.krs));
     }
 
     if (data.photo != null) {
-        promises.push(uploadBytesResumable(ref(storage, `${npm}/${npm}_photo.png`), data.photo));
+        promises.push(uploadBytesResumable(ref(storage, `${folderName}/photo.png`), data.photo));
     }
 
     if (data.ktm != null) {
-        promises.push(uploadBytesResumable(ref(storage, `${npm}/${npm}_ktm.png`), data.ktm));
+        promises.push(uploadBytesResumable(ref(storage, `${folderName}/ktm.png`), data.ktm));
     }
 
     if (data.ktp != null) {
-        promises.push(uploadBytesResumable(ref(storage, `${npm}/${npm}_ktp.png`), data.ktp));
+        promises.push(uploadBytesResumable(ref(storage, `${folderName}/ktp.png`), data.ktp));
     }
 
     if (data.dns != null) {
-        promises.push(uploadBytesResumable(ref(storage, `${npm}/${npm}_dns.pdf`), data.dns));
+        promises.push(uploadBytesResumable(ref(storage, `${folderName}/dns.pdf`), data.dns));
     }
 
     if (data.sertifikat != null) {
-        promises.push(uploadBytesResumable(ref(storage, `${npm}/${npm}_sertifikat.pdf`), data.sertifikat));
+        promises.push(uploadBytesResumable(ref(storage, `${folderName}/sertifikat.pdf`), data.sertifikat));
     }
 
     if (data.cv != null) {
-        promises.push(uploadBytesResumable(ref(storage, `${npm}/${npm}_cv.pdf`), data.cv));
+        promises.push(uploadBytesResumable(ref(storage, `${folderName}/cv.pdf`), data.cv));
     }
 
     Promise.all(promises)
@@ -56,4 +54,4 @@ const postUploadFileDocument = (data: UploadFileDocument) => {
 
 }
 
-export  default  postUploadFileDocument;
+export default postUploadFileDocument;

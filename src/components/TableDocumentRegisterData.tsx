@@ -1,13 +1,16 @@
-const TableDetailUser = (dataUser?: RegisterData) => {
+import {OpenInNew} from "@mui/icons-material";
 
-    const detailUser = (key: string, value?: string | number) => {
+const TableDocumentRegisterData = (documentData?: DocumentData) => {
+
+    const documentUser = (key?: string, fileName?: string) => {
         return <tr className="border-b">
             <th scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                 {key}
             </th>
             <td className="px-6 py-4">
-                {value}
+                <a href={`${import.meta.env.VITE_URL_FIREBASE_STORAGE}/${documentData?.folder_name}%2F${fileName}?alt=media`}
+                   target="_blank" className="text-blue-500">Lihat di sini <OpenInNew/></a>
             </td>
         </tr>
     }
@@ -27,22 +30,17 @@ const TableDetailUser = (dataUser?: RegisterData) => {
                 </tr>
                 </thead>
                 <tbody>
-                {detailUser("ID", dataUser?.id)}
-                {detailUser("NPM", dataUser?.npm)}
-                {detailUser("NAMA", dataUser?.name)}
-                {detailUser("No HP", dataUser?.phone)}
-                {detailUser("Email", dataUser?.email)}
-                {detailUser("Jurusan", dataUser?.major)}
-                {detailUser("Jenis Kelamin", dataUser?.gender)}
-                {detailUser("Tempat Lahir", dataUser?.birth_place)}
-                {detailUser("Tanggal Lahir", dataUser?.birth_date)}
-                {detailUser("Alamat", dataUser?.address)}
-                {detailUser("IPK", dataUser?.ipk)}
-                {detailUser("Posisi Daftar", dataUser?.apply_position)}
+                {documentUser("CV", documentData?.cv)}
+                {documentUser("DNS", documentData?.dns)}
+                {documentUser("KRS", documentData?.krs)}
+                {documentUser("KTM", documentData?.ktm)}
+                {documentUser("KTP", documentData?.ktp)}
+                {documentUser("Foto", documentData?.photo)}
+                {documentUser("Sertifikat", documentData?.sertifikat)}
                 </tbody>
             </table>
         </div>
     );
 };
 
-export default TableDetailUser;
+export default TableDocumentRegisterData;
