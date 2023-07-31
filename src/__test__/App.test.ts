@@ -6,7 +6,6 @@ import getDocumentData from "../repository/getDocumentData.ts";
 import generateFolderName from "../helper/generateFolderName.ts";
 import supabase from "../db/DatabaseClient.ts";
 import deleteRegisterData from "../repository/deleteRegisterData.ts";
-import {SupabaseClient} from "@supabase/supabase-js";
 import deleteDocumentData from "../repository/deleteDocumentData.ts";
 
 
@@ -73,8 +72,7 @@ describe('postDocuments()', () => {
 
 describe('getDocumentsData()', () => {
     it('should be true', async () => {
-        const result = await getDocumentData(43);
-        expect(true).toBe(true);
+        await getDocumentData(43);
     });
 });
 
